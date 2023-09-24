@@ -29,7 +29,7 @@ public class ConcurrencyTests
         Assert.Equal(expected, Concurrency.Index);
     }
 
-    [Fact(Skip = "В github actions гонка не репродуцируема")]
+    [Fact(Skip = "В github  actions гонка не репродуцируема")]
     public void EightThreads_100KIterations_RaceIsReproduced()
     {
         var expected = Concurrency.Increment(8, 100_000);
