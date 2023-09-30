@@ -30,10 +30,11 @@ let parseStringToDouble(arg : string) =
 let parseCalcArguments(args : string[]) =
     if not (isArgLengthSupported args) then
         ArgumentException("There must be three arguments!") |> raise
-    let val1 = parseStringToDouble(args[0])
-    let operation = parseOperation(args[1])
-    let val2 = parseStringToDouble(args[2])
-    {arg1 = val1; operation = operation; arg2 = val2 };
+    {
+        arg1 = parseStringToDouble(args[0])
+        operation = parseOperation(args[1])
+        arg2 = parseStringToDouble(args[2])
+    };
     
     
     
