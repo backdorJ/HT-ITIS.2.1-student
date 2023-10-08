@@ -26,8 +26,7 @@ let parseStringToDouble (arg : string) =
 
 let rec parseArgs (args: string[]): Result<('a * CalculatorOperation * 'b), Message> =
     maybe {
-        let! parsedArgs = args |> isArgLengthSupported
-        let! argsFinally =  (parsedArgs.[0], parsedArgs.[1], parsedArgs.[2]) |> isOperationSupported
+        let! argsFinally =  (args.[0], args.[1], args.[2]) |> isOperationSupported
         let! arg1 = argsFinally.Item1 |> parseStringToDouble
         let operation = argsFinally.Item2
         let! arg2 = argsFinally.Item3 |> parseStringToDouble
