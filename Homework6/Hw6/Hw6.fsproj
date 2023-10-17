@@ -14,13 +14,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
         <Content Include="WebRoot\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="Calculator\MaybeBuilder.fs" />
+      <Compile Include="Calculator\Calc.fs" />
+      <Compile Include="Calculator\ArgsOfCalc.fs" />
+      <Compile Include="CalcMiddleware.fs" />
+      <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Homework5\Hw5\Hw5.fsproj" />
     </ItemGroup>
 </Project>
