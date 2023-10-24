@@ -37,36 +37,32 @@ public static class HtmlComponentsCreateService
     {
         var labelContainer = new TagBuilder("label");
 
-        var displayName = prop.GetCustomAttributes(typeof(DisplayAttribute), true)
-            .OfType<DisplayAttribute>()
-            .FirstOrDefault()?.Name;
-        
-        switch (displayName)
-        {
-            case null:
-                labelContainer.InnerHtml.AppendHtml(ValidateExtensions.GetCamelCaseSyntaxByProperty(prop.Name));
-                break;
-            default:
-                labelContainer.InnerHtml.AppendHtml(displayName);
-                break;
-        }
+        var displayName = prop
+            .GetCustomAttributes<DisplayAttribute>()
+            .FirstOrDefault()?
+            .Name;
+
+        if (displayName == null)
+            labelContainer.InnerHtml.AppendHtml(ValidateExtensions.SplitCamelCase(prop.Name));
+        else
+            labelContainer.InnerHtml.AppendHtml(displayName);
         
         labelContainer.Attributes.Add("for", prop.Name);
         return labelContainer;
     }
     
-    public static IHtmlContent GetValidateHtmlByProperty(PropertyInfo prop, object o, TagBuilder container)
+    public static IHtmlContent ValidatePropertyAndAppendSpan(PropertyInfo prop, object model, TagBuilder container)
     {
         var spanContainer = new TagBuilder("span");
         spanContainer.InnerHtml.AppendHtml(string.Empty);
-        if (o == null) return spanContainer;
+        if (model == null) return spanContainer;
 
-        foreach (ValidationAttribute validateAttribute in prop.GetCustomAttributes(typeof(ValidationAttribute), true))
+        foreach (ValidationAttribute validationAttribute in prop.GetCustomAttributes(typeof(ValidationAttribute), true))
         {
-            if (validateAttribute.IsValid(prop.GetValue(o)))
+            if (validationAttribute.IsValid(prop.GetValue(model)))
                 continue;
             
-            spanContainer.InnerHtml.AppendHtml(validateAttribute.ErrorMessage!);
+            spanContainer.InnerHtml.AppendHtml(validationAttribute.ErrorMessage!);
             return spanContainer;
         }
 

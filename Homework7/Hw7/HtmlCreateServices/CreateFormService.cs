@@ -6,14 +6,14 @@ namespace Hw7.HtmlCreateServices;
 
 public static class CreateFormService
 {
-    public static IHtmlContent ProcessCreateHtml(PropertyInfo prop, object obj)
+    public static IHtmlContent CreateHtml(PropertyInfo prop, object obj)
     {
         var divContainer = new TagBuilder("div");
 
         if (!prop.PropertyType.IsEnum)
             ValidateExtensions.GroupLabelAndInput(prop, divContainer);
         else
-            ValidateExtensions.GroupElementByEnum(prop, divContainer);
+            ValidateExtensions.GroupLabelAndSelection(prop, divContainer);
 
         ValidateExtensions.ValidateProperty(prop, obj, divContainer);
         return divContainer;

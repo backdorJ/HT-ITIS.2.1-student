@@ -13,12 +13,12 @@ public static class HtmlHelperExtensions
 {
     public static IHtmlContent MyEditorForModel<TModel>(this IHtmlHelper<TModel> helper)
     {
-        var metadata = helper.ViewData.ModelExplorer.ModelType;
+        var typeModel = helper.ViewData.ModelExplorer.ModelType;
         var model = helper.ViewData.Model;
         var htmlContent = new HtmlContentBuilder();
         
-        foreach (var prop in metadata.GetProperties())
-            htmlContent.AppendHtml(CreateFormService.ProcessCreateHtml(prop, model!));
+        foreach (var prop in typeModel.GetProperties())
+            htmlContent.AppendHtml(CreateFormService.CreateHtml(prop, model!));
 
         return htmlContent;
     }
