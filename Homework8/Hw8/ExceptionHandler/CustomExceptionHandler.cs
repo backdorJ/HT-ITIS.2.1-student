@@ -4,9 +4,9 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Hw8.Middleware
+namespace Hw8.ExceptionHandler
 {
-    public class CustomExceptionHandler
+    public static class CustomExceptionHandler
     {
         public static string ErrorHandlingAsync(Exception exception)
         {
