@@ -1,6 +1,6 @@
 namespace Hw8.Calculator;
 
-public static class Calculator
+public static class CalculatorR
 {
     public static double CalculateByOperation(double val1, Operation operation, double val2, ICalculator calculate)
     {
