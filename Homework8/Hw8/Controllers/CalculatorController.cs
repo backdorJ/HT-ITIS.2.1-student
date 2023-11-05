@@ -17,7 +17,8 @@ public class CalculatorController : Controller
         try
         {
             var (firstValue, secondValue) = CalculateParser.ParseArgs(val1, val2);
-            return Calculator.Calculator.CalculateByOperation(firstValue, operation, secondValue, calculator);
+            var parsedOperation = CalculateParser.ParseOperation(operation);
+            return Calculator.Calculator.CalculateByOperation(firstValue, parsedOperation, secondValue, calculator);
         }
         catch (Exception e)
         {

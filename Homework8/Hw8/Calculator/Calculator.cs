@@ -2,11 +2,11 @@ namespace Hw8.Calculator;
 
 public class Calculator
 {
-    public static double CalculateByOperation(double val1, string operation, double val2, ICalculator calculate)
+    public static double CalculateByOperation(double val1, Operation operation, double val2, ICalculator calculate)
     {
         try
         {
-            return Enum.Parse(typeof(Operation), operation) switch
+            return operation switch
             {
                 Operation.Plus => calculate.Plus(val1, val2),
                 Operation.Minus => calculate.Minus(val1, val2),

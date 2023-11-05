@@ -17,4 +17,16 @@ public static class CalculateParser
 
         return (currentVal1, currentVal2);
     }
+
+    public static Operation ParseOperation(string operation)
+    {
+        return operation switch
+        {   
+            "Plus" => Operation.Plus,
+            "Minus" => Operation.Minus,
+            "Divide" => Operation.Divide,
+            "Multiply" => Operation.Multiply,
+            _ => Operation.Invalid
+        };
+    }
 }
