@@ -16,13 +16,13 @@ namespace Hw8.ExceptionHandler
             switch (exception)
             {
                 case InvalidOperationException invalidException:
-                    result = result.Append(invalidException.Message);
+                    result.Append(invalidException.Message);
                     break;
                 case InvalidDataException invalidData:
-                    result = result.Append(invalidData.Message);
+                    result.Append(invalidData.Message);
                     break;
                 default:
-                    result = result.Append(exception.Message);
+                    result.Append(exception.Message);
                     break;
             }
 
