@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -10,22 +11,22 @@ namespace Hw8.ExceptionHandler
     {
         public static string ErrorHandlingAsync(Exception exception)
         {
-            var result = string.Empty;
+            var result = new StringBuilder();
 
             switch (exception)
             {
                 case InvalidOperationException invalidException:
-                    result = invalidException.Message;
+                    result = result.Append(invalidException.Message);
                     break;
                 case InvalidDataException invalidData:
-                    result = invalidData.Message;
+                    result = result.Append(invalidData.Message);
                     break;
                 default:
-                    result = exception.Message;
+                    result = result.Append(exception.Message);
                     break;
             }
 
-            return result;
+            return result.ToString();
         }
 
     }
