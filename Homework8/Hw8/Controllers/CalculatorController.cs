@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Hw8.Calculator;
+using Hw8.Middleware;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hw8.Controllers;
@@ -11,8 +12,17 @@ public class CalculatorController : Controller
         string val1,
         string operation,
         string val2)
+    
     {
-        throw new NotImplementedException();
+        try
+        {
+            var (firstValue, secondValue) = CalculateParser.ParseArgs(val1, val2);
+            return Calculator.Calculator.CalculateByOperation(firstValue, operation, secondValue, calculator);
+        }
+        catch (Exception e)
+        {
+            return Content(CustomExceptionHandler.ErrorHandlingAsync(e));
+        }
     }
     
     [ExcludeFromCodeCoverage]
