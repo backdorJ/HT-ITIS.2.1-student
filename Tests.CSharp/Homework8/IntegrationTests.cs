@@ -26,6 +26,7 @@ public class IntegrationTests : IClassFixture<WebApplicationFactory<Hw8.Program>
             await _client.GetAsync($"{_url}/Calculator/Calculate?val1={val1}&operation={operation}&val2={val2}");
         var actual = await response.Content.ReadAsStringAsync();
         Assert.Equal(expected, actual);
+        
     }
 
     [HomeworkTheory(Homeworks.HomeWork8)]
