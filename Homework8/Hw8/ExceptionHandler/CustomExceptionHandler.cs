@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Hw8.ExceptionHandler
 {
+    [ExcludeFromCodeCoverage]
     public static class CustomExceptionHandler
     {
         public static string ErrorHandlingAsync(Exception exception)

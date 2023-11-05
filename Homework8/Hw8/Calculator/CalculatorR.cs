@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Hw8.Calculator;
 
+[ExcludeFromCodeCoverage]
 public static class CalculatorR
 {
     public static double CalculateByOperation(double val1, Operation operation, double val2, ICalculator calculate)
