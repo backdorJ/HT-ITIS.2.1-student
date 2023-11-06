@@ -31,6 +31,7 @@ public class CalculatorController : Controller
             Operation.Divide => calculator.Divide(firstValue, secondValue),
             Operation.Minus => calculator.Minus(firstValue, secondValue),
             Operation.Invalid => throw new InvalidOperationException(Messages.InvalidOperationMessage),
+            _ => throw new ArgumentOutOfRangeException(nameof(parsedOperation))
         };
     }
 
