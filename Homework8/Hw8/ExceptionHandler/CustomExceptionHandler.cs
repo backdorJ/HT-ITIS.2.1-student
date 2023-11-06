@@ -13,22 +13,12 @@ namespace Hw8.ExceptionHandler
     {
         public static string ErrorHandlingAsync(Exception exception)
         {
-            var result = new StringBuilder();
-
-            switch (exception)
+            return exception switch
             {
-                case InvalidOperationException invalidException:
-                    result.Append(invalidException.Message);
-                    break;
-                case InvalidDataException invalidData:
-                    result.Append(invalidData.Message);
-                    break;
-                default:
-                    result.Append(exception.Message);
-                    break;
-            }
-
-            return result.ToString();
+                InvalidOperationException invalidException => invalidException.Message,
+                InvalidDataException invalidData => invalidData.Message,
+                _ => exception.Message
+            };
         }
 
     }

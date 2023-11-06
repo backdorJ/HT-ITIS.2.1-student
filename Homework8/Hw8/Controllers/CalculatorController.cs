@@ -8,17 +8,31 @@ namespace Hw8.Controllers;
 
 public class CalculatorController : Controller
 {
+    private readonly ICalculatorParser _calculatorParser;
+
+    public CalculatorController(ICalculatorParser calculatorParser)
+    {
+        _calculatorParser = calculatorParser;
+    }
+
     public ActionResult<double> Calculate([FromServices] ICalculator calculator,
         string val1,
         string operation,
         string val2)
-    
     {
         try
         {
-            var (firstValue, secondValue) = CalculateParser.ParseArgs(val1, val2);
-            var parsedOperation = CalculateParser.ParseOperation(operation);
-            return CalculatorR.CalculateByOperation(firstValue, parsedOperation, secondValue, calculator);
+            var (firstValue, secondValue) = _calculatorParser.ParseArgs(val1, val2);
+            var parsedOperation = _calculatorParser.ParseOperation(operation);
+            return parsedOperation switch
+            {
+                Operation.Plus => calculator.Plus(firstValue, secondValue),
+                Operation.Multiply => calculator.Multiply(firstValue, secondValue),
+                Operation.Divide => calculator.Divide(firstValue, secondValue),
+                Operation.Minus => calculator.Minus(firstValue, secondValue),
+                Operation.Invalid => throw new InvalidOperationException(Messages.InvalidOperationMessage),
+                _ => throw new ArgumentException(Messages.InvalidOperationMessage)
+            };
         }
         catch (Exception e)
         {
