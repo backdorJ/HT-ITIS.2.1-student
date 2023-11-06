@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Hw8.Calculator;
+using Hw8.ExceptionHandler;
 using Hw8.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ public class Program
             app.UseHsts();
         }
 
+        app.UseMiddleware<CustomExceptionMiddleware>();
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 

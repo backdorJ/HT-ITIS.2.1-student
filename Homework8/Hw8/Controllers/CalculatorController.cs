@@ -10,7 +10,8 @@ namespace Hw8.Controllers;
 public class CalculatorController : Controller
 {
     private readonly ICalculatorParser _calculatorParser;
-
+    
+    [ExcludeFromCodeCoverage]
     public CalculatorController(ICalculatorParser calculatorParser)
     {
         _calculatorParser = calculatorParser;
@@ -21,26 +22,19 @@ public class CalculatorController : Controller
         string operation,
         string val2)
     {
-        try
+        var (firstValue, secondValue) = _calculatorParser.ParseArgs(val1, val2);
+        var parsedOperation = _calculatorParser.ParseOperation(operation);
+        return parsedOperation switch
         {
-            var (firstValue, secondValue) = _calculatorParser.ParseArgs(val1, val2);
-            var parsedOperation = _calculatorParser.ParseOperation(operation);
-            return parsedOperation switch
-            {
-                Operation.Plus => calculator.Plus(firstValue, secondValue),
-                Operation.Multiply => calculator.Multiply(firstValue, secondValue),
-                Operation.Divide => calculator.Divide(firstValue, secondValue),
-                Operation.Minus => calculator.Minus(firstValue, secondValue),
-                Operation.Invalid => throw new InvalidOperationException(Messages.InvalidOperationMessage),
-                _ => throw new ArgumentException(Messages.InvalidOperationMessage)
-            };
-        }
-        catch (Exception e)
-        {
-            return Content(CustomExceptionHandler.ErrorHandlingAsync(e));
-        }
+            Operation.Plus => calculator.Plus(firstValue, secondValue),
+            Operation.Multiply => calculator.Multiply(firstValue, secondValue),
+            Operation.Divide => calculator.Divide(firstValue, secondValue),
+            Operation.Minus => calculator.Minus(firstValue, secondValue),
+            Operation.Invalid => throw new InvalidOperationException(Messages.InvalidOperationMessage),
+            _ => throw new ArgumentException(Messages.InvalidOperationMessage)
+        };
     }
-    
+
     [ExcludeFromCodeCoverage]
     public IActionResult Index()
     {
