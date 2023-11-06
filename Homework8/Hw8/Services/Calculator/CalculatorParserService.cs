@@ -1,8 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 using Hw8.Calculator;
 
 namespace Hw8.Services;
 
+[ExcludeFromCodeCoverage]
 public class CalculatorParserService : ICalculatorParser
 {
     public (double val1, double val2) ParseArgs(string val1, string val2)
