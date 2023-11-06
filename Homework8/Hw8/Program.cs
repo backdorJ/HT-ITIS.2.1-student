@@ -35,6 +35,7 @@ public class Program
         app.UseRouting();
         app.UseAuthorization();
 
+        
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Calculator}/{action=Index}");
