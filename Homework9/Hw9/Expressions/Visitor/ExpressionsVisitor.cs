@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Hw9.ErrorMessages;
 
 namespace Hw9.Expressions.Visitor;
 
+[ExcludeFromCodeCoverage]
 public class ExpressionsVisitor : ExpressionVisitor
 {
     /// <summary>

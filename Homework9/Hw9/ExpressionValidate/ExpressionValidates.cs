@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Hw9.ErrorMessages;
 using Hw9.RegulareExpressions;
 
@@ -6,6 +7,7 @@ namespace Hw9.ExpressionValidate;
 /// <summary>
 /// Класс валидации
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static class ExpressionValidates
 {
     /// <summary>
