@@ -28,7 +28,7 @@ public class ParserExpression
     /// </summary>
     /// <param name="expression">Строка с варажением</param>
     /// <returns></returns>
-    public static string GetPolskyString(string expression) 
+    public static string GetPolakString(string expression) 
         => InfixToPostfix(expression);
 
     #region Алгоритм преобзразования строки в польскую запись
