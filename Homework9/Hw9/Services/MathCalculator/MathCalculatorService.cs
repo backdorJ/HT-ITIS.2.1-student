@@ -1,4 +1,9 @@
+using System.Linq.Expressions;
 using Hw9.Dto;
+using Hw9.ErrorMessages;
+using Hw9.Expressions.ExpressionConvert;
+using Hw9.Expressions.Visitor;
+using Hw9.ExpressionValidate;
 
 namespace Hw9.Services.MathCalculator;
 
@@ -6,6 +11,18 @@ public class MathCalculatorService : IMathCalculatorService
 {
     public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
     {
-        throw new NotImplementedException();
+        try
+        {
+            ExpressionValidates.Validate(expression ?? "");
+            var polakString = ParserExpression.InfixToPostfix(expression!);    
+            var operationExpression = ExpressionTreeConverter.ConvertToTree(polakString);
+            var result = await ApplyExpressionVisitorSettings.CompileAndInvokeDelegate(operationExpression);
+            
+            return new CalculationMathExpressionResultDto(result);
+        }
+        catch (Exception e)
+        {
+            return new CalculationMathExpressionResultDto(e.Message);
+        }
     }
 }
