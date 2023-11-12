@@ -71,7 +71,7 @@ public static class ExpressionValidates
     }
     
     /// <summary>
-    /// Проверка что выражение не начинается с операции
+    /// Проверка что выражение не начинается с операции 
     /// </summary>
     /// <param name="expression">Выражение</param>
     /// <returns>Булевое значение</returns>
