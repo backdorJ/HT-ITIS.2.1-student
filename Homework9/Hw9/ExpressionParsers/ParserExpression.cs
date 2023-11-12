@@ -22,15 +22,7 @@ public class ParserExpression
         { "*", 2 },
         { "/", 2 }
     };
-
-    /// <summary>
-    /// Получение строки в виде польской записи
-    /// </summary>
-    /// <param name="expression">Строка с варажением</param>
-    /// <returns></returns>
-    public static string GetPolakString(string expression) 
-        => InfixToPostfix(expression);
-
+    
     #region Алгоритм преобзразования строки в польскую запись
     
     /// <summary>
@@ -38,7 +30,7 @@ public class ParserExpression
     /// </summary>
     /// <param name="infixExpression">Выражение</param>
     /// <returns>Польская запись</returns>
-    private static string InfixToPostfix(string infixExpression)
+    public static string InfixToPostfix(string infixExpression)
     {
         var ops = new Stack<string>();
         var polish = new Stack<string>();

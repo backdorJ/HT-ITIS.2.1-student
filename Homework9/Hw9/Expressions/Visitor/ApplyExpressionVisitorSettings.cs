@@ -11,9 +11,8 @@ public static class ApplyExpressionVisitorSettings
     /// <summary>
     /// Применения VisitExpression
     /// </summary>
-    /// <param name="expression">Выражение</param>
     /// <returns>Число</returns>
-    public static async Task<double> Apply(Expression expression)
+    public static async Task<double> CompileAndInvokeDelegate(Expression expression)
         => Expression.Lambda<Func<double>>(
             await ExpressionsVisitor.VisitExpression(expression)).Compile().Invoke();
 }

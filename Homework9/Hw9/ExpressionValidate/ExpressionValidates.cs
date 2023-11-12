@@ -23,10 +23,7 @@ public static class ExpressionValidates
         if (!AreParenthesesBalanced(expression))
             throw new Exception(MathErrorMessager.IncorrectBracketsNumber);
 
-        foreach (var c in expression.Where(c => 
-                     !RegularExpressionTemplates.Numbers.IsMatch(c.ToString())
-                     && !new[] { '+', '-', '*', '/', '(', ')', '.', ' ' }.Contains(c)))
-                        throw new Exception(MathErrorMessager.UnknownCharacterMessage(c));
+        ValidateToCorrectCharacter(expression);
 
         if (!DoesNotStartWithOperator(expression))
             throw new Exception(MathErrorMessager.StartingWithOperation);
@@ -35,6 +32,18 @@ public static class ExpressionValidates
             throw new Exception(MathErrorMessager.EndingWithOperation);
 
         ComplexValidateAllCharacters(expression);
+    }
+
+    /// <summary>
+    /// Проверяет выражение на допустимые значения
+    /// </summary>
+    /// <param name="expression">Строковое выражение</param>
+    private static void ValidateToCorrectCharacter(string expression)
+    {
+        foreach (var c in expression.Where(c => 
+                     !RegularExpressionTemplates.Numbers.IsMatch(c.ToString())
+                     && !new[] { '+', '-', '*', '/', '(', ')', '.', ' ' }.Contains(c)))
+            throw new Exception(MathErrorMessager.UnknownCharacterMessage(c));
     }
     
     /// <summary>

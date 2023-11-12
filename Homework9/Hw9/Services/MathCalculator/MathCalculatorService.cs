@@ -14,9 +14,9 @@ public class MathCalculatorService : IMathCalculatorService
         try
         {
             ExpressionValidates.Validate(expression ?? "");
-            var polakString = ParserExpression.GetPolakString(expression!);    
+            var polakString = ParserExpression.InfixToPostfix(expression!);    
             var operationExpression = ExpressionTreeConverter.ConvertToTree(polakString);
-            var result = await ApplyExpressionVisitorSettings.Apply(operationExpression);
+            var result = await ApplyExpressionVisitorSettings.CompileAndInvokeDelegate(operationExpression);
             
             return new CalculationMathExpressionResultDto(result);
         }
