@@ -9,7 +9,7 @@ namespace Hw9.ExpressionValidate;
 public static class ApplyExpressionVisitorSettings
 {
     /// <summary>
-    /// Применения VisitExpression
+    /// Комплирует и вызывает делегат из expression
     /// </summary>
     /// <returns>Число</returns>
     public static async Task<double> CompileAndInvokeDelegate(Expression expression)
