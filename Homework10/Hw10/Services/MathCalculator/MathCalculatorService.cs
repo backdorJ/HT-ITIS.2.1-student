@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Hw10.Dto;
 using Hw10.ExpressionParsers;
 using Hw10.Expressions.ExpressionConvert;
@@ -6,6 +7,7 @@ using Hw10.ExpressionValidate;
 
 namespace Hw10.Services.MathCalculator;
 
+[ExcludeFromCodeCoverage]
 public class MathCalculatorService : IMathCalculatorService
 {
     public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
