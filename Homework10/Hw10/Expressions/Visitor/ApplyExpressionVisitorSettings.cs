@@ -1,0 +1,17 @@
+using System.Linq.Expressions;
+
+namespace Hw10.Expressions.Visitor;
+
+/// <summary>
+/// Класс для настроек
+/// </summary>
+public static class ApplyExpressionVisitorSettings
+{
+    /// <summary>
+    /// Комплирует и вызывает делегат из expression
+    /// </summary>
+    /// <returns>Число</returns>
+    public static async Task<double> CompileAndInvokeDelegate(Expression expression)
+        => Expression.Lambda<Func<double>>(
+            await ExpressionsVisitor.VisitExpression(expression)).Compile().Invoke();
+}
