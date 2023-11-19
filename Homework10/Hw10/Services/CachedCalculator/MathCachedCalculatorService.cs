@@ -12,10 +12,7 @@ public class MathCachedCalculatorService : IMathCalculatorService
 	private readonly IMathCalculatorService _simpleCalculator;
 
 	public MathCachedCalculatorService(ApplicationContext dbContext, IMathCalculatorService simpleCalculator)
-	{
-		_dbContext = dbContext;
-		_simpleCalculator = simpleCalculator;
-	}
+		=> (_dbContext, _simpleCalculator) = (dbContext, simpleCalculator);
 
 	public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
 	{
