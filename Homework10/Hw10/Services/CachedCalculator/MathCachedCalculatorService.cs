@@ -18,37 +18,30 @@ public class MathCachedCalculatorService : IMathCalculatorService
 	{
 		try
 		{
-			ExpressionValidates.Validate(expression ?? "");
-
 			var cachedExpression = await _dbContext.SolvingExpressions
 				.FirstOrDefaultAsync(e => e.Expression == expression);
 
-			if (cachedExpression is null)
+			if (cachedExpression is not null)
 			{
-				var expressionResultDto = await _simpleCalculator.CalculateMathExpressionAsync(expression);
-
-				if (!expressionResultDto.IsSuccess)
-					return new CalculationMathExpressionResultDto(expressionResultDto.ErrorMessage);
-
-				var entity = new SolvingExpression
-				{
-					Expression = expression!,
-					Result = expressionResultDto.Result
-				};
-
-				await _dbContext.SolvingExpressions.AddAsync(entity);
-				await _dbContext.SaveChangesAsync();
-				
-				return expressionResultDto;
+				await Task.Delay(1000);
+				return new CalculationMathExpressionResultDto(cachedExpression.Result);
 			}
-
-			await Task.Delay(1000);
 			
-			return new CalculationMathExpressionResultDto
+			var expressionResultDto = await _simpleCalculator.CalculateMathExpressionAsync(expression);
+
+			if (!expressionResultDto.IsSuccess)
+				return new CalculationMathExpressionResultDto(expressionResultDto.ErrorMessage);
+
+			var entity = new SolvingExpression
 			{
-				Result = cachedExpression.Result,
-				IsSuccess = true,
-			};	
+				Expression = expression!,
+				Result = expressionResultDto.Result
+			};
+
+			await _dbContext.SolvingExpressions.AddAsync(entity);
+			await _dbContext.SaveChangesAsync();
+				
+			return expressionResultDto;
 		}
 		catch (Exception e)
 		{

@@ -12,21 +12,12 @@ public class MathCalculatorService : IMathCalculatorService
 {
     public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
     {
-        try
-        {
-            ExpressionValidates.Validate(expression ?? string.Empty);
-            
-            var expressionOfPostfix = ParserExpression.InfixToPostfix(expression!);
-            var operationExpression = ExpressionTreeConverter.ConvertToTree(expressionOfPostfix);
+        var expressionOfPostfix = ParserExpression.InfixToPostfix(expression!);
+        var operationExpression = ExpressionTreeConverter.ConvertToTree(expressionOfPostfix);
 
-            await Task.Delay(1000);
-            
-            var result = await ApplyExpressionVisitorSettings.CompileAndInvokeDelegate(operationExpression);
-            return new CalculationMathExpressionResultDto(result);
-        }
-        catch (Exception e)
-        {
-            return new CalculationMathExpressionResultDto(e.Message);
-        }       
+        await Task.Delay(1000);
+
+        var result = await ApplyExpressionVisitorSettings.CompileAndInvokeDelegate(operationExpression);
+        return new CalculationMathExpressionResultDto(result);
     }
 }
