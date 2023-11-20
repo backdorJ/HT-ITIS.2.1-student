@@ -19,7 +19,7 @@ public class MathCalculatorService : IMathCalculatorService
             var expressionOfPostfix = ParserExpression.InfixToPostfix(expression!);
             var operationExpression = ExpressionTreeConverter.ConvertToTree(expressionOfPostfix);
 
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             
             var result = await ApplyExpressionVisitorSettings.CompileAndInvokeDelegate(operationExpression);
             return new CalculationMathExpressionResultDto(result);

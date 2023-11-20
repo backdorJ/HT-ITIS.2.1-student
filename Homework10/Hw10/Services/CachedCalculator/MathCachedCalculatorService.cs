@@ -8,51 +8,36 @@ namespace Hw10.Services.CachedCalculator;
 
 public class MathCachedCalculatorService : IMathCalculatorService
 {
-	private readonly ApplicationContext _dbContext;
-	private readonly IMathCalculatorService _simpleCalculator;
+    private readonly ApplicationContext _dbContext;
+    private readonly IMathCalculatorService _simpleCalculator;
 
-	public MathCachedCalculatorService(ApplicationContext dbContext, IMathCalculatorService simpleCalculator)
-		=> (_dbContext, _simpleCalculator) = (dbContext, simpleCalculator);
+    public MathCachedCalculatorService(ApplicationContext dbContext, IMathCalculatorService simpleCalculator)
+        => (_dbContext, _simpleCalculator) = (dbContext, simpleCalculator);
 
-	public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
-	{
-		try
-		{
-			ExpressionValidates.Validate(expression ?? "");
+    public async Task<CalculationMathExpressionResultDto> CalculateMathExpressionAsync(string? expression)
+    {
+        var cachedExpression = await _dbContext.SolvingExpressions
+            .FirstOrDefaultAsync(e => e.Expression == expression);
 
-			var cachedExpression = await _dbContext.SolvingExpressions
-				.FirstOrDefaultAsync(e => e.Expression == expression);
+        if (cachedExpression is not null)
+            return new CalculationMathExpressionResultDto(cachedExpression.Result);
 
-			if (cachedExpression is null)
-			{
-				var expressionResultDto = await _simpleCalculator.CalculateMathExpressionAsync(expression);
+        await Task.Delay(1000);
 
-				if (!expressionResultDto.IsSuccess)
-					return new CalculationMathExpressionResultDto(expressionResultDto.ErrorMessage);
+        var expressionResultDto = await _simpleCalculator.CalculateMathExpressionAsync(expression);
 
-				var entity = new SolvingExpression
-				{
-					Expression = expression!,
-					Result = expressionResultDto.Result
-				};
+        if (!expressionResultDto.IsSuccess)
+            return expressionResultDto;
 
-				await _dbContext.SolvingExpressions.AddAsync(entity);
-				await _dbContext.SaveChangesAsync();
-				
-				return expressionResultDto;
-			}
+        var entity = new SolvingExpression
+        {
+            Expression = expression!,
+            Result = expressionResultDto.Result
+        };
 
-			await Task.Delay(1000);
-			
-			return new CalculationMathExpressionResultDto
-			{
-				Result = cachedExpression.Result,
-				IsSuccess = true,
-			};	
-		}
-		catch (Exception e)
-		{
-			return new CalculationMathExpressionResultDto(e.Message);
-		}
-	}
+        await _dbContext.SolvingExpressions.AddAsync(entity);
+        await _dbContext.SaveChangesAsync();
+
+        return expressionResultDto;
+    }
 }
