@@ -18,6 +18,8 @@ public class MathCachedCalculatorService : IMathCalculatorService
 	{
 		try
 		{
+			ExpressionValidates.Validate(expression ?? string.Empty);
+			
 			var cachedExpression = await _dbContext.SolvingExpressions
 				.FirstOrDefaultAsync(e => e.Expression == expression);
 
