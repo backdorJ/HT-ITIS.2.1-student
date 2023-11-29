@@ -11,9 +11,10 @@ public class MathCalculatorService : IMathCalculatorService
     {
         ExpressionValidates.Validate(expression ?? "");
         var polakString = ParserExpression.InfixToPostfix(expression!);    
-        dynamic operationExpression = ExpressionTreeConverter.ConvertToTree(polakString);
-        var result = await ApplyExpressionVisitorDispatcher.Visit(operationExpression);
+        var operationExpression = ExpressionTreeConverter.ConvertToTree(polakString);
 
-        return result;
+        await Task.Delay(1000);
+
+        return await ExpressionsVisitor.VisitExpression(operationExpression);
     }
 }
