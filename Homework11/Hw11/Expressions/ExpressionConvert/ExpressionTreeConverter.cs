@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace Hw11.Expressions.ExpressionConvert;
@@ -5,6 +6,7 @@ namespace Hw11.Expressions.ExpressionConvert;
 /// <summary>
 /// Класс конвертации
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ExpressionTreeConverter
 {
     /// <summary>

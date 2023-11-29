@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace Hw11.RegulareExpressions;
@@ -5,6 +6,7 @@ namespace Hw11.RegulareExpressions;
 /// <summary>
 /// Класс шаблонов
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static class RegularExpressionTemplates
 {
     /// <summary>
