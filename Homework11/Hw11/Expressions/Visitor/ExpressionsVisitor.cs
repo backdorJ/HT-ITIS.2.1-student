@@ -27,7 +27,6 @@ public class ExpressionsVisitor
     private static async Task<double> CompileUnaryAsync(Expression expression)
     {
         await Task.Delay(1000);
-
         var expressionCompiled = Task.Run(() => Expression.Lambda<Func<double>>(expression).Compile().Invoke());
 
         return await expressionCompiled;
