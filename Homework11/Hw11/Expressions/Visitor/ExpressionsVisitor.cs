@@ -23,12 +23,6 @@ public class ExpressionsVisitor
         var value = (double)expression.Value!;
         return await Task.Run(() => value);
     }
-    
-    private static async Task<double> Visit(UnaryExpression expression)
-    {
-        var value = CompileUnaryAsync(expression).Result;
-        return await Task.Run(() => value);
-    }
 
     private static async Task<double> CompileUnaryAsync(Expression expression)
     {
