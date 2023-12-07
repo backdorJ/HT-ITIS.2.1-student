@@ -21,7 +21,7 @@ let sendRequestAsync(client: HttpClient) (requestUrl: string) =
     }
 
 [<EntryPoint>]
-let main args =
+let main _ =
     let inputData = Console.ReadLine()
     use handler = new HttpClientHandler()
     use httpClient = new HttpClient(handler)

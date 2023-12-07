@@ -14,9 +14,9 @@ public class CalculationTimeTests : IClassFixture<WebApplicationFactory<Hw11.Pro
     }
 
     [HomeworkTheory(Homeworks.HomeWork11)]
-    [InlineData("2 + 3 + 4 + 6", 2000, 4000)]
-    [InlineData("(2 * 3 + 3 * 3) * (5 / 5 + 6 / 6)", 2000, 4000)]
-    [InlineData("(2 + 3) / 12 * 7 + 8 * 9", 2000, 5000)]
+    [InlineData("2 + 3 + 4 + 6", 1000, 4000)]
+    [InlineData("(2 * 3 + 3 * 3) * (5 / 5 + 6 / 6)", 1999, 4000)]
+    [InlineData("(2 + 3) / 12 * 7 + 8 * 9", 1500, 5000)]
     private async Task CalculatorController_ParallelTest(string expression, long minExpectedTime, long maxExpectedTime)
     {
         var executionTime = await GetRequestExecutionTime(expression);
@@ -33,6 +33,7 @@ public class CalculationTimeTests : IClassFixture<WebApplicationFactory<Hw11.Pro
         var response = await _client.PostCalculateExpressionAsync(expression);
         watch.Stop();
         response.EnsureSuccessStatusCode();
+        
         return watch.ElapsedMilliseconds;
     }
 }

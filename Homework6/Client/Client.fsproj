@@ -6,7 +6,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MiniProfiler" Version="4.3.8" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <Compile Include="Program.fs"/>
     </ItemGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Optimize>true</Optimize>
+    </PropertyGroup>
 
 </Project>

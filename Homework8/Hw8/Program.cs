@@ -18,6 +18,7 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddScoped<ICalculatorParser, CalculatorParserService>();
         builder.Services.AddScoped<ICalculator, CalculatorService>();
+        builder.Services.AddMiniProfiler(options => options.RouteBasePath = "/profiler");
 
         var app = builder.Build();
 
@@ -28,6 +29,7 @@ public class Program
             app.UseHsts();
         }
 
+        app.UseMiniProfiler();
         app.UseMiddleware<CustomExceptionMiddleware>();
         app.UseHttpsRedirection();
         app.UseStaticFiles();
