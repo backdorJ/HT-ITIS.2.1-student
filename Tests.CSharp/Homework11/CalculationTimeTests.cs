@@ -33,6 +33,7 @@ public class CalculationTimeTests : IClassFixture<WebApplicationFactory<Hw11.Pro
         var response = await _client.PostCalculateExpressionAsync(expression);
         watch.Stop();
         response.EnsureSuccessStatusCode();
+        
         return watch.ElapsedMilliseconds;
     }
 }
